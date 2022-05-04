@@ -92,14 +92,31 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route  /api/users
 // @access Public
 
-const getUsers = (req, res) => {
+const getUsers = asyncHandler(async (req, res) => {
     res.json({
         message: 'List of Users'
     })
-}
+})
+
+// @desc   Get User
+// @route  /api/user/id
+// @access Private
+
+const getUser = asyncHandler(async (req, res) => {
+    const user = {
+        id: req.user._id,
+        firstname: req.user.firstname,
+        lastname: req.user.lastname,
+        email: req.user.email,
+        isAdmin: req.user.isAdmin
+    }
+    
+    res.status(200).json(user)
+})
 
 module.exports = {
     registerUser,
     loginUser,
-    getUsers
+    getUsers,
+    getUser
 }
