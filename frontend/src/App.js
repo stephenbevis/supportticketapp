@@ -1,9 +1,34 @@
-const App = () => {
-    return (
-        <>
-            <h1>Ticket App</h1>
-        </>
-    );
-}
+// Router
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+// Toastify
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+// Pages
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+
+// Components
+import Header from './components/Header'
+
+const App = () => (
+    <>
+        <Router>
+            <Header />
+
+            <div className="py-5">
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                </Routes>
+            </div>
+        </Router>
+
+        <ToastContainer />
+    </>
+)
 
 export default App;
