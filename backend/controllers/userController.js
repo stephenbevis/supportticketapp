@@ -1,4 +1,9 @@
+// Imports
 const asyncHandler = require('express-async-handler')
+const bcrypt = require('bcryptjs')
+
+// Models
+const User = require('../models/userModel')
 
 // @desc   Register User
 // @route  /api/users
@@ -13,7 +18,37 @@ const registerUser = asyncHandler(async (req, res) => {
         })
     }
 
-    res.send('Register Route')
+    // Does User Already Exist?
+    const userExists = await User.findOne({ email })
+
+    userExists && res.status(400).json({
+        message: 'User already exists'
+    })
+
+    // Hash Password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    // Create User
+    const user = await User.create({
+        firstname,
+        lastname,
+        email,
+        password: hashedPassword
+    })
+
+    if(user){
+        res.status(201).json({
+            _id: user._id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email
+        })
+    } else {
+        res.status(400).json({
+            message: 'Invalid user data'
+        })
+    }
 })
 
 // @desc   Login User
