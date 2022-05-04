@@ -2,9 +2,16 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const connectDB = require('./config/db')
+const cors = require('cors')
 
 // Init Server
 const app = express()
+
+// Cors
+app.use(cors({
+    origin: 'http://localhost:5000'
+}))
+
 app.use(express.json())
 app.use(express.urlencoded({
     extended: false
