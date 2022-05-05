@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 const Header = () => {
     return (
         <header className='shadow-sm'>
-            <div className="container py-1">
+            <div className="container py-2">
                 <div className="row align-items-center">
                     <div className="col">
-                        <Link to='/' className='text-dark text-decoration-none'><h1 className='display-6'>Support Desk</h1></Link>
+                        <Link to='/' className='text-dark text-decoration-none'><p className='mb-0 lead'>Support Desk</p></Link>
                     </div>
 
                     <div className="col text-end">

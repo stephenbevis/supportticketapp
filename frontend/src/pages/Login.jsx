@@ -1,15 +1,21 @@
 // React
 import React, { useState } from 'react'
+
+// Toastify
 import { toast } from 'react-toastify'
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { login } from '../features/auth/authSlice'
 
 const Login = () => {
     const [loginData, setLoginData] = useState({
-        firstname: '',
-        lastname: '',
         email: '',
-        password: '',
-        password2: ''
+        password: ''
     })
+
+    const dispatch = useDispatch()
+    const { user, isLoading, isSuccess, message } = useSelector(state => state.auth)
 
     const handleInput = (e) => {
         setLoginData({
@@ -21,7 +27,12 @@ const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        
+        const userData = {
+            email: loginData.email,
+            password: loginData.password
+        }
+
+        dispatch(login(userData))
     }
 
     return (
