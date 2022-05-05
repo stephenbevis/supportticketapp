@@ -13,7 +13,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 // Bootstrap
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import './scss/custom.scss'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
