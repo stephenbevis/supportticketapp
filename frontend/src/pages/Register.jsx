@@ -1,6 +1,13 @@
 // React
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// Toastify
 import { toast } from 'react-toastify'
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { register, reset } from '../features/auth/authSlice'
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({
@@ -10,6 +17,24 @@ const Register = () => {
         password: '',
         password2: ''
     })
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const { user, isLoading, isSuccess, isError, message } = useSelector(state => state.auth)
+
+    useEffect(() => {
+        if(isError){
+            toast.error(message)
+        }
+
+        // Redirect If Successful Login
+        if(isSuccess || user){
+            navigate('/')
+        }
+
+        dispatch(reset())
+    }, [isError, isSuccess, user, message, navigate, dispatch])
 
     const handleInput = (e) => {
         setRegisterData({
@@ -23,6 +48,15 @@ const Register = () => {
 
         if(registerData.password !== registerData.password2){
             toast.error('Passwords do not match')
+        } else {
+            const userData = {
+                firstname: registerData.firstname,
+                lastname: registerData.lastname,
+                email: registerData.email,
+                password: registerData.password
+            }
+
+            dispatch(register(userData))
         }
     }
 
