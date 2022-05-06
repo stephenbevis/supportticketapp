@@ -27,7 +27,7 @@ const Header = () => {
                             <ul className='mb-0'>
                                 <li className='d-inline-block border-end pe-3 me-3'>New Support Ticket</li>
                                 {user &&<li className='d-inline-block' style={{ cursor: 'pointer' }} onClick={onLogout}>Logout</li>}
-                                {user &&<li className='d-inline-block ms-3'><Link to='/profile' className='text-dark text-decoration-none'>Profile</Link></li>}
+                                {user &&<li className='d-inline-block ms-3'><Link to='/profile' className='text-dark text-decoration-none'><i class="fa-solid fa-user-astronaut"></i> {user.firstname}</Link></li>}
                                 {!user && <li className='d-inline-block'><Link to='/login' className='text-dark text-decoration-none'>Login</Link></li>}
                                 {!user && <li className='d-inline-block ms-3'><Link to='/register' className='text-dark text-decoration-none'>Register</Link></li>}
                             </ul>
