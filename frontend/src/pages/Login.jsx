@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// Chakra
+import { Box, Heading, Text, FormControl, FormLabel, Input, Button, Spinner } from '@chakra-ui/react'
+
 // Toastify
 import { toast } from 'react-toastify'
 
@@ -51,25 +54,33 @@ const Login = () => {
         dispatch(login(userData))
     }
 
+    if(isLoading){
+        return (
+            <Box textAlign='center' mt='10'>
+                <Spinner size='xl' />
+            </Box>
+        )
+    }
+
     return (
-        <section aria-label='Login to an account' style={{ width: '100%', maxWidth: '325px', margin: '0 auto' }} className='border p-3'>
-            <h2 className='text-center'><i class="fa-solid fa-lock"></i> Login</h2>
-            <p className='lead text-center'>Login to Your Account</p>
+        <Box mx='auto' my='10' maxW='450px' border='1px' borderColor='gray.300' p='5'>
+            <Heading as='h2' textAlign='center' mb='2'><i class="fa-solid fa-lock"></i> Login</Heading>
+            <Text textAlign='center' color='gray.600' fontSize='xl' mb='5'>Login to Your Account</Text>
 
             <form onSubmit={onSubmit}>
-                <div class="mb-3">
-                    <label htmlFor="email" className='form-label'>Email</label>
-                    <input className='form-control' type="email" name='email' id='email' value={loginData && loginData.email} onInput={handleInput} placeholder='Email' required />
-                </div>
+                <FormControl mb='4'>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <Input type="email" name='email' id='email' value={loginData && loginData.email} onInput={handleInput} placeholder='Email' required />
+                </FormControl>
 
-                <div class="mb-4">
-                    <label htmlFor="password" className='form-label'>Password</label>
-                    <input className='form-control' type="password" name='password' id='password' value={loginData && loginData.password} onInput={handleInput} placeholder='Password' required />
-                </div>
+                <FormControl mb='8'>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <Input type="password" name='password' id='password' value={loginData && loginData.password} onInput={handleInput} placeholder='Password' required />
+                </FormControl>
 
-                <button className="btn btn-primary rounded-0 d-block w-100">Login</button>
+                <Button type='submit' colorScheme='teal'>Login</Button>
             </form>
-        </section>
+        </Box>
     )
 }
 

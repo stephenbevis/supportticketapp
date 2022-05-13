@@ -12,18 +12,19 @@ import App from './App'
 // Utilities
 import reportWebVitals from './reportWebVitals'
 
-// Bootstrap
-import './scss/custom.scss'
+// Chakra
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
 
 root.render(
-    <React.StrictMode>
+    <ChakraProvider>
         <Provider store={store}>
+            <ColorModeScript initialColorMode='dark' />
             <App />
         </Provider>
-    </React.StrictMode>
+    </ChakraProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function
