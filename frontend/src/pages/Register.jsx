@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// Chakra
+import { Box, Heading, Text, FormControl, FormLabel, Input, Button, Spinner } from '@chakra-ui/react'
+
 // Toastify
 import { toast } from 'react-toastify'
 
@@ -60,40 +63,48 @@ const Register = () => {
         }
     }
 
+    if(isLoading){
+        return (
+            <div className="text-center">
+                <Spinner />
+            </div>
+        )
+    }
+
     return (
-        <section aria-label='Register an account' style={{ width: '100%', maxWidth: '325px', margin: '0 auto' }} className='border p-3'>
-            <h2 className='text-center'><i class="fa-solid fa-user-astronaut"></i> Register</h2>
-            <p className='lead text-center'>Create an Account</p>
+        <Box mx='auto' my='10' maxW='450px' border='1px' borderColor='gray.300' p='5'>
+            <Heading as='h2' textAlign='center' mb='2'><i class="fa-solid fa-user-astronaut"></i> Register</Heading>
+            <Text textAlign='center' color='gray.600' fontSize='xl' mb='5'>Create An Account</Text>
 
             <form onSubmit={onSubmit}>
-                <div class="mb-3">
-                    <label htmlFor="firstname" className='form-label'>Firstname</label>
-                    <input className='form-control' type="text" name='firstname' id='firstname' value={registerData && registerData.firstname} onInput={handleInput} placeholder='Firstname' required />
-                </div>
+                <FormControl mb='4'>
+                    <FormLabel htmlFor="firstname">Firstname</FormLabel>
+                    <Input type="text" name='firstname' id='firstname' value={registerData && registerData.firstname} onInput={handleInput} placeholder='Firstname' required />
+                </FormControl>
 
-                <div class="mb-3">
-                    <label htmlFor="lastname" className='form-label'>Lastname</label>
-                    <input className='form-control' type="text" name='lastname' id='lastname' value={registerData && registerData.lastname} onInput={handleInput} placeholder='Lastname' required />
-                </div>
+                <FormControl mb='4'>
+                    <FormLabel htmlFor="lastname" className='form-label'>Lastname</FormLabel>
+                    <Input type="text" name='lastname' id='lastname' value={registerData && registerData.lastname} onInput={handleInput} placeholder='Lastname' required />
+                </FormControl>
 
-                <div class="mb-3">
-                    <label htmlFor="email" className='form-label'>Email</label>
-                    <input className='form-control' type="email" name='email' id='email' value={registerData && registerData.email} onInput={handleInput} placeholder='Email' required />
-                </div>
+                <FormControl mb='4'>
+                    <FormLabel htmlFor="email" className='form-label'>Email</FormLabel>
+                    <Input type="email" name='email' id='email' value={registerData && registerData.email} onInput={handleInput} placeholder='Email' required />
+                </FormControl>
 
-                <div class="mb-3">
-                    <label htmlFor="password" className='form-label'>Password</label>
-                    <input className='form-control' type="password" name='password' id='password' value={registerData && registerData.password} onInput={handleInput} placeholder='Password' required />
-                </div>
+                <FormControl mb='4'>
+                    <FormLabel htmlFor="password" className='form-label'>Password</FormLabel>
+                    <Input type="password" name='password' id='password' value={registerData && registerData.password} onInput={handleInput} placeholder='Password' required />
+                </FormControl>
 
-                <div class="mb-4">
-                    <label htmlFor="confirm-password" className='form-label'>Confirm Password</label>
-                    <input className='form-control' type="password" name='password2' id='confirm-password' value={registerData && registerData.password2} onInput={handleInput} placeholder='Confirm Password' required />
-                </div>
+                <FormControl mb='8'>
+                    <FormLabel htmlFor="confirm-password" className='form-label'>Confirm Password</FormLabel>
+                    <Input type="password" name='password2' id='confirm-password' value={registerData && registerData.password2} onInput={handleInput} placeholder='Confirm Password' required />
+                </FormControl>
 
-                <button className="btn btn-primary rounded-0 d-block w-100">Register</button>
+                <Button type='submit' colorScheme='teal'>Register</Button>
             </form>
-        </section>
+        </Box>
     )
 }
 
