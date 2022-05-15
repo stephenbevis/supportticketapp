@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const REGISTER_URL = '/api/users'
 const LOGIN_URL = '/api/users/login'
+const USER_URL = '/api/user'
 
 // Register User
 const register = async (userData) => {
@@ -25,13 +26,21 @@ const login = async (userData) => {
     return response.data
 }
 
+// Delete User
+const deleteUser = async (userData) => {
+    const response = await axios.delete(USER_URL, userData)
+
+    return response.data
+}
+
 // Logout
 const logout = () => localStorage.removeItem('user')
 
 const authService = {
     register,
     login,
-    logout
+    logout,
+    deleteUser
 }
 
 export default authService

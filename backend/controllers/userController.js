@@ -1,5 +1,6 @@
 // Imports
 const asyncHandler = require('express-async-handler')
+const ErrorResponse = require('../utils/errorResponse')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -14,7 +15,7 @@ const generateToken = (id) => {
 }
 
 // @desc   Register User
-// @route  /api/users
+// @route  POST /api/users
 // @access Public
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -64,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc   Login User
-// @route  /api/users/login
+// @route  POST /api/users/login
 // @access Public
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -79,7 +80,8 @@ const loginUser = asyncHandler(async (req, res) => {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            message: 'Success'
         })
     } else {
         res.status(401).json({
@@ -89,34 +91,74 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 // @desc   Get Users
-// @route  /api/users
+// @route  GET /api/users
 // @access Public
 
 const getUsers = asyncHandler(async (req, res) => {
-    res.json({
-        message: 'List of Users'
-    })
+    try {
+        const users = await User.find()
+
+        res.status(200).json({
+            success: true,
+            data: users
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            data: {}
+        })
+    }
 })
 
 // @desc   Get User
-// @route  /api/user/id
+// @route  GET /api/user/id
 // @access Private
 
 const getUser = asyncHandler(async (req, res) => {
-    const user = {
-        id: req.user._id,
-        firstname: req.user.firstname,
-        lastname: req.user.lastname,
-        email: req.user.email,
-        isAdmin: req.user.isAdmin
+    try {
+        const user = await User.findById(req.params.id)
+
+        // If id passed in is formatted incorrectly
+        if(!user){
+            return res.status(400).json({
+                success: false,
+                message: 'No user matches the id passed in'
+            })
+        }
+
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            data: {}
+        })
     }
-    
-    res.status(200).json(user)
+})
+
+// @desc     Delete User
+// @route    DELETE /api/profile/:id
+// @access   Private
+
+const deleteUser = asyncHandler(async (req, res, next) => {
+    const currentUser = getUser()
+    const user = await User.findById(currentUser._id)
+
+    if(!user){
+        return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404))
+    }
+
+    user.remove()
+
+    res.status(204).json({
+        success: true,
+        data: {}
+    })
 })
 
 module.exports = {
     registerUser,
     loginUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUser
 }

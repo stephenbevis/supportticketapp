@@ -1,20 +1,26 @@
+// Imports
 const express = require('express')
 const router = express.Router()
-const { registerUser, loginUser, getUsers, getUser } = require('../controllers/userController')
+
+// Controllers
+const { registerUser, loginUser, getUsers, getUser, deleteUser } = require('../controllers/userController')
 
 // Middleware
-const { protect } = require('../middleware/authMiddleware')
+const { protect } = require('../middleware/auth')
 
-// Register User
-router.post('/', registerUser)
+router.route('/')
+    .get(getUsers)
+    .post(registerUser)
+    .delete(deleteUser)
 
-// Login User
-router.post('/login', loginUser)
+router.route('/:id')
+    .get(getUser)
+    .delete(deleteUser)
 
-// Get Users
-router.get('/', getUsers)
+router.route('/login')
+    .post(loginUser)
 
-// Get User
-router.get(`/profile`, protect, getUser)
+router.route('/profile/:id')
+    .get(protect, getUser)
 
 module.exports = router

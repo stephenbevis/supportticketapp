@@ -12,8 +12,8 @@ const Home = () => {
     })
 
     const categories = [
-        'New Ticket',
-        'My Tickets'
+        'My Tickets',
+        'New Ticket'
     ]
 
     const onSubmit = (e) => {
@@ -31,7 +31,7 @@ const Home = () => {
 
     const CreateTicket = () => {
         return (
-            <chakra.form onSubmit={onSubmit} my='5'>
+            <chakra.form onSubmit={onSubmit} my='2'>
                 <FormControl mb='4'>
                     <FormLabel htmlFor="name">Customer Name</FormLabel>
                     <Input type="text" name='name' id='name' value={customerData && customerData.firstname} onInput={handleInput} placeholder='Customer Name' required />
@@ -57,7 +57,7 @@ const Home = () => {
     }
 
     return (
-        <Box maxW='450px' my='10' mx='auto'>
+        <Box w='90%' maxW='450px' my='3' mx='auto'>
             <Tabs>
                 <TabList>
                     {categories.map(category => (
@@ -66,6 +66,10 @@ const Home = () => {
                 </TabList>
 
                 <TabPanels>
+                    <TabPanel>
+                        <Text textAlign='center' color='gray.600' fontSize='xl'>No Active Tickets</Text>
+                    </TabPanel>
+
                     <TabPanel px='0'>
                         <CreateTicket />
                     </TabPanel>

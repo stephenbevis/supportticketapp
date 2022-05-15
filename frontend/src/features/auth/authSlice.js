@@ -38,6 +38,11 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     await authService.logout()
 })
 
+// Delete User
+export const deleteUser = createAsyncThunk('auth/delete', async () => {
+    await authService.deleteUser(user)
+})
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -72,6 +77,7 @@ export const authSlice = createSlice({
                 state.isLoading = false
                 state.isSuccess = true
                 state.user = action.payload
+                state.message = action.payload.message
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false
@@ -80,6 +86,20 @@ export const authSlice = createSlice({
                 state.user = null
             })
             .addCase(logout.fulfilled, (state) => {
+                state.user = null
+            })
+            .addCase(deleteUser.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(deleteUser.fulfilled, (state) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.user = null
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
                 state.user = null
             })
     }

@@ -1,9 +1,9 @@
 // React
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link as ReactLink, useNavigate } from 'react-router-dom'
 
 // Chakra
-import { Box, Heading, Text, FormControl, FormLabel, Input, Button, Spinner } from '@chakra-ui/react'
+import { chakra, Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, Spinner } from '@chakra-ui/react'
 
 // Toastify
 import { toast } from 'react-toastify'
@@ -72,7 +72,7 @@ const Register = () => {
     }
 
     return (
-        <Box mx='auto' my='10' maxW='450px' border='1px' borderColor='gray.300' p='5'>
+        <Box mx='auto' my='3' w='90%' maxW='450px'>
             <Heading as='h2' textAlign='center' mb='2'><i class="fa-solid fa-user-astronaut"></i> Register</Heading>
             <Text textAlign='center' color='gray.600' fontSize='xl' mb='5'>Create An Account</Text>
 
@@ -102,7 +102,10 @@ const Register = () => {
                     <Input type="password" name='password2' id='confirm-password' value={registerData && registerData.password2} onInput={handleInput} placeholder='Confirm Password' required />
                 </FormControl>
 
-                <Button type='submit' colorScheme='teal'>Register</Button>
+                <Flex alignItems='center'>
+                    <Button type='submit' colorScheme='teal' mr='5'>Register</Button>
+                    <Text>Have an account? <ReactLink to='/login'><chakra.span textDecoration='underline' cursor='pointer'>Login</chakra.span></ReactLink></Text>
+                </Flex>
             </form>
         </Box>
     )
