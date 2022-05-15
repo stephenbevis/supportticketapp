@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 
 // Components
 import Header from './components/Header'
+import PrivateRoute from './components/PrivateRoute'
 
 const App = () => (
     <>
@@ -21,7 +22,10 @@ const App = () => (
 
             <div className="py-5">
                 <Routes>
-                    <Route path='/' element={<Home />} />
+                    <Route path='/' element={<PrivateRoute />}>
+                        <Route path='/' element={<Home />} />
+                    </Route>
+
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/:id/profile' element={<Profile />} />
