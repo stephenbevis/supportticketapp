@@ -47,7 +47,6 @@ const Home = () => {
                     <Input type="text" name='product' id='product' value={customerData && customerData.product} onInput={handleInput} placeholder='Product' required />
                 </FormControl>
 
-
                 <FormLabel>Description</FormLabel>
                 <Textarea name='description' id='description' value={customerData && customerData.description} onInput={handleInput} placeholder='Description' mb='8' required />
 
