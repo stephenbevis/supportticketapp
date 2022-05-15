@@ -22,5 +22,6 @@ connectDB()
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/tickets', require('./routes/ticketRoutes'))
 
 app.listen(process.env.PORT, () => console.log(`Server Running: Port ${process.env.PORT}`))
