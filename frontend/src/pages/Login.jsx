@@ -64,7 +64,7 @@ const Login = () => {
 
     return (
         <Box mx='auto' my='3' w='90%' maxW='450px'>
-            <Heading as='h2' textAlign='center' mb='2'><i class="fa-solid fa-lock"></i> Login</Heading>
+            <Heading as='h2' textAlign='center' mb='2'><i className="fa-solid fa-lock"></i> Login</Heading>
             <Text textAlign='center' color='gray.600' fontSize='xl' mb='5'>Login to Your Account</Text>
 
             <form onSubmit={onSubmit}>
