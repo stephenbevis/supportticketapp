@@ -1,63 +1,24 @@
+// React
 import React, { useState } from 'react'
 
 // Chakra
-import {chakra, Box, Tabs, TabList, Tab, TabPanels, TabPanel, FormControl, FormLabel, Input, Button, Text, Textarea } from '@chakra-ui/react'
+import {Box, Tabs, TabList, Tab, TabPanels, TabPanel, Text } from '@chakra-ui/react'
+
+// Components
+import CreateTicket from '../components/CreateTicket'
+
+const categories = [
+    'My Tickets',
+    'New Ticket'
+]
 
 const Home = () => {
-    const [customerData, setCustomerData] = useState({
-        nameame: '',
-        email: '',
-        product: '',
-        description: ''
-    })
+    const [currentTab, setCurrentTab] = useState(0)
 
-    const categories = [
-        'My Tickets',
-        'New Ticket'
-    ]
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-
-        console.log('Submit')
-    }
-
-    const handleInput = (e) => {
-        setCustomerData({
-            ...customerData,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const CreateTicket = () => {
-        return (
-            <chakra.form onSubmit={onSubmit} my='2'>
-                <FormControl mb='4'>
-                    <FormLabel htmlFor="name">Customer Name</FormLabel>
-                    <Input type="text" name='name' id='name' value={customerData && customerData.firstname} onInput={handleInput} placeholder='Customer Name' required />
-                </FormControl>
-
-                <FormControl mb='4'>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input type="email" name='email' id='email' value={customerData && customerData.email} onInput={handleInput} placeholder='Email' required />
-                </FormControl>
-
-                <FormControl mb='4'>
-                    <FormLabel htmlFor="product">Product</FormLabel>
-                    <Input type="text" name='product' id='product' value={customerData && customerData.product} onInput={handleInput} placeholder='Product' required />
-                </FormControl>
-
-                <FormLabel>Description</FormLabel>
-                <Textarea name='description' id='description' value={customerData && customerData.description} onInput={handleInput} placeholder='Description' mb='8' required />
-
-                <Button type='submit' colorScheme='teal'>Submit</Button>
-            </chakra.form>
-        )
-    }
-
+    // onChange to set tabs potentially
     return (
         <Box w='90%' maxW='450px' my='3' mx='auto'>
-            <Tabs>
+            <Tabs onChange={index => setCurrentTab(index)} index={currentTab}>
                 <TabList>
                     {categories.map(category => (
                         <Tab fontSize='xl' w='100%'>{category}</Tab>
@@ -70,7 +31,7 @@ const Home = () => {
                     </TabPanel>
 
                     <TabPanel px='0'>
-                        <CreateTicket />
+                        <CreateTicket setCurrentTab={setCurrentTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
